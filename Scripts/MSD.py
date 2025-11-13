@@ -19,10 +19,9 @@ for i in range(copy):
     folded_index_e=i*Natoms+folded_e
     os.system('echo "a {}-{}\nname {} folded{}\nq" | gmx make_ndx -f {}/production2-Verlet.gro -o MSD_folded.ndx -n MSD_folded.ndx'.format(folded_index_s,folded_index_e,str(i+1),str(i+1),trajectory_dir))
 
-#directly use gromacs trajectory without trjconv processing.
-#Compare the msd result with/without whole+nojump processing, got the same results, so gmx msd should consider the pbc by default.
-# in new version 2024.2 gmx, -pbc -rmpbc could be set explicitly with "yes" bydefault, the msd result is same to 2021.7 gmx msd (without -rmcomm). But this -rmcomm option is not implemeted in 2024.4
-#add rmcomm to deal with center of mass motion of condnesate  
+#Periodic boundary conditions were dealt by default in the MSD calculations by gmx msd versions before 2022 (for example Gromacs versions 2021.7 used here) with raw trajectory input.
+#Compare the msd result of traj input with/without whole+nojump PBC processing, got the same results, so gmx msd should consider the pbc by default.
+#new version 2024 gmx, -pbc -rmpbc could be set explicitly with "yes", the msd result is same to 2021.7 gmx msd (without -rmcomm). 
 for i in range(copy):
 #for i in [98,99]:
     os.system('echo "{}\n0" |gmx msd -f {}/production2-Verlet.xtc -s {}/production2-Verlet.tpr -n MSD_folded.ndx -o MSD_folded{}.xvg -beginfit 0 -endfit 20000  -b 29500000 -rmcomm'.format(str(i+1),trajectory_dir,trajectory_dir,str(i+1)))
