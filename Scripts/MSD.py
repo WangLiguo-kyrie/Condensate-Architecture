@@ -25,8 +25,8 @@ for i in range(copy):
 for i in range(copy):
     #gromacs 2021.7:
     os.system('echo "{}\n0" |gmx msd -f {}/production2-Verlet.xtc -s {}/production2-Verlet.tpr -n MSD_folded.ndx -o MSD_folded{}.xvg -beginfit 0 -endfit 20000  -b 29500000 -rmcomm'.format(str(i+1),trajectory_dir,trajectory_dir,str(i+1)))
-    #gromacs 2023.4    
-    os.system('echo "{}\n" |gmx msd -f {}/last1us_whole-nojump-trans.xtc -s {}/production2-Verlet.tpr -n ../MSD_folded.ndx -o MSD_folded{}.xvg -beginfit 0 -endfit 20000  -b 29500000 -pbc yes'.format(str(i+1),trajectory_dir,trajectory_dir,str(i+1)))
+    #gromacs 2023.4:
+    #os.system('echo "{}\n" |gmx msd -f {}/last1us_whole-nojump-trans.xtc -s {}/production2-Verlet.tpr -n ../MSD_folded.ndx -o MSD_folded{}.xvg -beginfit 0 -endfit 20000  -b 29500000 -pbc yes'.format(str(i+1),trajectory_dir,trajectory_dir,str(i+1)))
 
 
 
