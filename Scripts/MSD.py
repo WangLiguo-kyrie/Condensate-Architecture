@@ -23,7 +23,7 @@ for i in range(copy):
 #Compare the msd result of traj input with/without whole+nojump PBC processing, got the same results, so gmx msd should consider the pbc by default.
 #in old version Gromacs (2021.7 here): 'gmx msd -rmcomm', processing with PBC and remove group center of mass motion.
 
-#new version 2023 gmx, -pbc -rmpbc could be set explicitly with "yes", -rmcomm option was removed. 
+#new version 2023 gmx, -pbc -rmpbc could be set explicitly, -rmcomm option was removed. 
 #We choose to use 'gmx trjconv -pbc whole'+'gmx trjconv -pbc nojump'+'gmx trjconv -fit translation' to process PBC and remove the center of mass motion first. And then use 'gmx msd'
 for i in range(copy):
     #gromacs 2021.7:
