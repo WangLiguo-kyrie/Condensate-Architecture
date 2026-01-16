@@ -22,7 +22,10 @@ for i in range(copy):
 
 #Periodic boundary conditions were dealt by default in the MSD calculations by gmx msd versions before 2022 (for example Gromacs versions 2021.7 used here) with raw trajectory input.
 #Compare the msd result of traj input with/without whole+nojump PBC processing, got the same results, so gmx msd should consider the pbc by default.
-#new version 2023 gmx, -pbc -rmpbc could be set explicitly with "yes", -rmcomm option was removed. We could use gmx trjconv -fit translation to remove the center of mass motion first.  
+#in old version Gromacs (2021.7 here): 'gmx msd -rmcomm', processing with PBC and remove group center of mass motion.
+
+#new version 2023 gmx, -pbc -rmpbc could be set explicitly, -rmcomm option was removed. 
+#We choose to use 'gmx trjconv -pbc whole'+'gmx trjconv -pbc nojump'+'gmx trjconv -fit translation' to process PBC and remove the center of mass motion first. And then use 'gmx msd'
 for i in range(copy):
     os.system('echo "{}\n0" |gmx msd -f {}/production2-Verlet.xtc -s {}/production2-Verlet.tpr -n MSD_CDD.ndx -o msd_CDD{}.xvg -beginfit 0 -endfit 20000  -b 29500000 -rmcomm'.format(str(i+1),trajectory_dir,trajectory_dir,str(i+1)))
     
